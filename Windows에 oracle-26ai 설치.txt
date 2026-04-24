@@ -1,0 +1,16 @@
+Windows에 oracle-26ai 설치
+
+0. Docker Desktop 설치
+
+1. docker pull container-registry.oracle.com/database/free:latest
+
+2. docker run -d 
+  --name oracle-26ai-free 
+  -p 1521:1521 
+  -p 5500:5500 
+  -e ORACLE_PWD=YourSecurePassword123 
+  container-registry.oracle.com/database/free:latest
+
+3. docker logs -f ora-26ai
+
+4. docker exec -it ora-26ai sqlplus sys/YourSecurePassword123@FREEPDB1 as sysdba
