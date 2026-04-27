@@ -18,6 +18,11 @@ TDE 테스트
 
 샘플 테이블스페이스 생성
 SQL> create tablespace tde_test1 datafile '/oradata1/ORACLE19/tde_test1.dbf' size 10m;
+SQL> CREATE TABLESPACE my_data_ts 
+DATAFILE '/opt/oracle/oradata/FREE/FREEPDB1/my_data01.dbf' 
+SIZE 100M 
+AUTOEXTEND ON NEXT 50M 
+MAXSIZE 2G;
 
 샘플 테이블 생성 및 데이터 삽입
 SQL> 
