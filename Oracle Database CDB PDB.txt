@@ -1,0 +1,55 @@
+Oracle Database
+
+Container Database(CDB) : admin area
+
+Pluggable Database(PDB) : real database applications store data
+
+
+$ docker exec -it ora-26ai /bin/bash
+bash-4.4$ sqlplus / as sysdba
+
+SQL> show con_name
+CON_NAME
+-------------------
+CDB$ROOT
+
+SQL> show user;
+
+SQL> alter session set container = FREEPDB1;
+
+SQL> create user bob identified by "BobPassword123!";
+
+SQL> alter user bob QUOTA unlimited ON USERS;
+
+SQL> grant create session to bob;
+
+SQL> grant create table to bob;
+
+SQL> conn bob/BobPassword123!@FREEPDB1;
+
+SQL> select table_name from user_tables;
+
+프로파일 생성과 적용 (SQL)
+Connect as ADMIN: Connect to your PDB as a user with CREATE PROFILE and ALTER PROFILE privileges (e.g., ADMIN).
+Create the Profile: Define the limits using CREATE PROFILE.
+sql
+CREATE PROFILE app_user_profile LIMIT
+  SESSIONS_PER_USER 3
+  CPU_PER_SESSION UNLIMITED
+  IDLE_TIME 60
+  PASSWORD_LIFE_TIME 90
+  PASSWORD_LOCK_TIME 5
+  PASSWORD_REUSE_MAX 10;
+This creates a profile named app_user_profile with specific resource and password constraints.
+Assign the Profile to a New User: Create the user and apply the profile.
+sql
+CREATE USER new_user IDENTIFIED BY "Password123#"
+  PROFILE app_user_profile;
+Grant Session Privileges: Allow the new user to connect.
+sql
+GRANT CREATE SESSION TO new_user;
+
+<<이미 있는 계정에 프로파일 적용>>
+ALTER USER bob PROFILE app_user_profile;
+
+
