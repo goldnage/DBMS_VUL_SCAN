@@ -1,0 +1,46 @@
+1. check default tablespace algorithm
+SHOW PARAMETER TABLESPACE_ENCRYPTION_DEFAULT_ALGORITHM;
+
+2. view active encryption for existing Tablespaces
+SELECT TS#, ENCRYPTIONALG, STATUS 
+FROM V$ENCRYPTED_TABLESPACES;
+
+3. identify default column encryption
+SELECT OWNER, TABLE_NAME, COLUMN_NAME, ENCRYPTION_ALG 
+FROM DBA_ENCRYPTED_COLUMNS;
+
+4. databse-level key information
+SELECT ENCRYPTIONALG FROM V$DATABASE_KEY_INFO;
+
+https://positivemh.tistory.com/1229
+
+TDE 테스트
+
+샘플 테이블스페이스 생성
+SQL> create tablespace tde_test1 datafile '/oradata1/ORACLE19/tde_test1.dbf' size 10m;
+
+샘플 테이블 생성 및 데이터 삽입
+SQL> 
+create table sample (col1 number, col2 varchar2(10)) tablespace tde_test1;
+insert into sample values (1, 'A');
+insert into sample values (2, 'B');
+insert into sample values (3, 'C');
+commit;
+
+데이터파일 내용 확인
+$ cd /oradata1/ORACLE19
+$ ls -al tde_test1.dbf
+-rw-r----- 1 oracle oinstall 10493952 Jun 15 14:12 tde_test1.dbf
+$ strings tde_test1.dbf >> tde_tbs_off.txt
+$ cat tde_tbs_off.txt
+}|{z
+ORACLE19b
+TDE_TEST1
+AAAAAAAA
+
+tde 설정
+tde 월렛 경로 생성
+mkdir -pv /home/oracle/keystores/oracle19/tde
+# chown -Rv oracle:oinstall /home/oracle/keystores
+# chmod -Rv 700 /home/oracle/keystores
+
