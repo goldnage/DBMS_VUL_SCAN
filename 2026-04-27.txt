@@ -11,6 +11,12 @@ drop role if exists t1_schema_role;
 create user testuser1 identified by testuser1 quota unlimited on users;
 grant db_developer_role to testuser1;
 
+
+<<gsad password change>>
+1. --user=admin --new-password=‘new_password'
+2. sudo runuser -u _gvm -- gvmd --user=admin --new-password=YOUR_NEW_PASSWORD
+
+
 create user testuser2 identified by testuser2 quota unlimited on users;
 grant create session to testuser2;
 
