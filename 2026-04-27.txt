@@ -1,0 +1,35 @@
+ALTER USER 'username'@'localhost' PASSWORD EXPIRE INTERVAL 180 DAY;
+
+ALTER USER 'username'@'localhost' 
+FAILED_LOGIN_ATTEMPTS 3 
+PASSWORD_LOCK_TIME 1;
+
+drop user if exists testuser1 cascade;
+drop user if exists testuser2 cascade;
+drop role if exists t1_schema_role;
+
+create user testuser1 identified by testuser1 quota unlimited on users;
+grant db_developer_role to testuser1;
+
+create user testuser2 identified by testuser2 quota unlimited on users;
+grant create session to testuser2;
+
+create role t1_schema_role;
+
+SELECT t.name, e.encryptionalg, e.status
+FROM v$tablespace t, v$encrypted_tablespaces e
+WHERE e.ts# = t.ts#;
+
+SELECT owner, table_name, column_name, encryption_alg
+FROM dba_encrypted_columns;
+
+SELECT name, ksppstvl AS value 
+FROM x$ksppi a, x$ksppcv b 
+WHERE a.indx = b.indx AND name = '_tablespace_encryption_default_algorithm';
+
+SELECT network_service_banner 
+FROM v$session_connect_info 
+WHERE sid = (SELECT sid FROM v$mystat WHERE rownum = 1);
+
+SELECT * FROM v$rman_encryption_algorithms;
+
