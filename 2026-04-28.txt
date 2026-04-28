@@ -46,6 +46,10 @@ postgres=# CREATE USER username WITH PASSWORD 'your_password';
 -- Create a user with specific privileges (e.g., can create databases)
 postgreSQL=# CREATE USER power_user WITH PASSWORD 'password123' CREATEDB;
 
+postgreSQL=# SELECT usename, usesuper, usecreatedb, usesysid 
+FROM pg_catalog.pg_user;
+
+
 
 
 
