@@ -17,3 +17,6 @@ $ docker compose version
 
 <<후속 작업>>
 https://greenbone.github.io/docs/latest/22.4/container/index.html
+
+<<postgresql super user creation script>>
+create role username with login superuser password 'your_password';
