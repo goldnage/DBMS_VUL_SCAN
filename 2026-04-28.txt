@@ -14,3 +14,6 @@ $ curl -SL https://github.com/docker/compose/releases/download/v5.1.2/docker-com
 $ chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 
 $ docker compose version
+
+<<후속 작업>>
+https://greenbone.github.io/docs/latest/22.4/container/index.html
