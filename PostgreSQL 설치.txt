@@ -41,3 +41,16 @@
 
    PostgreSQL 재시작
     $ sudo systemctl restart postgresql
+
+7. 테이블 생성
+ CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    hire_date DATE,
+    salary NUMERIC(10, 2)
+  );
+  
+8. 현재 로그인 한 유저 식별
+  mark_db=>select current_user;
+
+  
