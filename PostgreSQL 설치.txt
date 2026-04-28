@@ -1,0 +1,43 @@
+<<PostgreSQL 설치>>
+
+1. 시스템 업데이트
+
+   $ sudo apt update && sudo apt upgrade -y
+
+2. PostgreSQL 설치
+
+  $ sudo apt install postgresql-common -y
+  $ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+  $ sudo apt update
+  $ sudo apt install postgresql -y
+ 
+3. PostgreSQL 서비스 시작
+
+   $ sudo systemctl start PostgreSQL
+
+4. 데이터베이스 연결
+
+   $ sudo -u postgres psql
+
+5. 설치 후 필수 작업
+  
+   postgres=# ALTER USER postgres WITH PASSWORD 'your_strong_password';
+
+   postgres=# CREATE USER myuser WITH PASSWORD 'mypassword';
+
+   postgres=# CREATE DATABASE mydb OWNER myuser;
+
+   postgres=# \q   ---> exit 
+
+6.  에러: "FATAL: Peer authentication failed for user 'newuser'"
+     ---> /etc/postgresql/[version]/main/pg_hba.conf 또는
+     ----> /var/lib/pgsql/data/pg_hba.conf
+   $ sudo nano /etc/postgresql/16/main/pg_hba.conf
+
+   룰 갱신
+    local 연결 라인을 찾아서 peer를 scram-sha-256으로 바꾸다.
+     갱신 전: local all all peer
+     갱신 후: local all all scram-sha-256
+
+   PostgreSQL 재시작
+    $ sudo systemctl restart postgresql
