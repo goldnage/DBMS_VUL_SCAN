@@ -40,6 +40,12 @@ FROM all_users;
 
 << 모든 사용자 계정 조회 -postgreSQL>>
 postgres=# SELECT usename FROM pg_catalog.pg_user;
+-- Basic command to create a user with a password
+postgres=# CREATE USER username WITH PASSWORD 'your_password';
+
+-- Create a user with specific privileges (e.g., can create databases)
+postgreSQL=# CREATE USER power_user WITH PASSWORD 'password123' CREATEDB;
+
 
 
 
