@@ -49,7 +49,7 @@ postgres=# CREATE USER power_user WITH PASSWORD 'password123' CREATEDB;
 postgres=# SELECT usename, usesuper, usecreatedb, usesysid 
 FROM pg_catalog.pg_user;
 
-postgres=# CREATE database colby_db;
+postgres=# CREATE database colby_db owner colby;
 
 postgres=# \c colby_db colby
 
