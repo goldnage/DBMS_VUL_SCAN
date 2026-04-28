@@ -49,9 +49,16 @@ postgres=# CREATE USER power_user WITH PASSWORD 'password123' CREATEDB;
 postgres=# SELECT usename, usesuper, usecreatedb, usesysid 
 FROM pg_catalog.pg_user;
 
-postgres=# CREATE database colby_db owner colby;
+!!postgres=# CREATE database colby_db owner colby;
 
-postgres=# \c colby_db colby
+!!postgres=# \c colby_db colby
+
+-- If creating a new user (LOGIN is included by default)
+postgres=# CREATE USER username WITH PASSWORD 'your_password';
+
+-- If the role already exists but cannot log in
+postgres=# ALTER ROLE username WITH LOGIN;
+
 
 
 
