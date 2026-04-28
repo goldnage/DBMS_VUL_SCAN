@@ -44,10 +44,14 @@ postgres=# SELECT usename FROM pg_catalog.pg_user;
 postgres=# CREATE USER username WITH PASSWORD 'your_password';
 
 -- Create a user with specific privileges (e.g., can create databases)
-postgreSQL=# CREATE USER power_user WITH PASSWORD 'password123' CREATEDB;
+postgres=# CREATE USER power_user WITH PASSWORD 'password123' CREATEDB;
 
-postgreSQL=# SELECT usename, usesuper, usecreatedb, usesysid 
+postgres=# SELECT usename, usesuper, usecreatedb, usesysid 
 FROM pg_catalog.pg_user;
+
+postgres=# CREATE database colby_db;
+
+postgres=# \c colby_db colby
 
 
 
