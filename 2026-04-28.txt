@@ -35,5 +35,9 @@ SQL> SELECT username, account_status, created
 FROM dba_users 
 ORDER BY created DESC;
 
+SQL> SELECT username, created 
+FROM all_users;
+
+
 
 
