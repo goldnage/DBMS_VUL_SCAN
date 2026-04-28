@@ -30,13 +30,17 @@ AND resource_name IN ('PASSWORD_REUSE_TIME', 'PASSWORD_REUSE_MAX');
 
 SQL> ALTER PROFILE default LIMIT PASSWORD_REUSE_TIME 30 PASSWORD_REUSE_MAX 10;
 
-<< 모든 사용자 계정 조회>>
+<< 모든 사용자 계정 조회 -oracle>>
 SQL> SELECT username, account_status, created 
 FROM dba_users 
 ORDER BY created DESC;
 
 SQL> SELECT username, created 
 FROM all_users;
+
+<< 모든 사용자 계정 조회 -postgreSQL>>
+postgres=# SELECT usename FROM pg_catalog.pg_user;
+
 
 
 
