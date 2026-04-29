@@ -1,0 +1,18 @@
+패스워드 재사용 한도(limit)가 설정되었는 지 검증(DBA_PROFILES in Oracle 26ai)
+
+PASSWORD_REUSE_LIMIT: 패스워드가 재사용되기 전에 요구되는 패스워드 변경 수
+
+PASSWORD_REUSE_TIME: 패스워드가 재사용되기 전에 경과되어야 하는 날자 수
+
+sql:
+
+SELECT profile, resource_name, limit
+FROM dba_profiles
+WHERE resource_name LIKE '%PASSWORD_REUSE%'
+ORDER BY profile, resource_name;
+
+Limit를 갱신하는 명령: ALTER PROFILE
+
+sql: 
+ALTER PROFILE default LIMIT PASSWORD_REUSE_LIMIT 10;
+ALTER PROFILE default LIMIT PASSWORD_REUSE_TIME UNLIMITED;
