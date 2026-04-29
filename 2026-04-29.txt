@@ -1,3 +1,7 @@
 https://github.com/goldnage/DBMS_VUL_SCAN/
 
-Start-Process -Wait -FilePath "Docker Desktop Installer.exe" -ArgumentList "install", "--accept-license", "--installation-dir=D:\Docker\Docker", "--wsl-default-data-root=D:\Docker\wsl", "--windows-containers-default-data-root=D:\Docker\data"
+Start-Process -Wait -FilePath "D:\DockerDesktop\Docker Desktop Installer.exe" -ArgumentList "install", "--accept-license", "--installation-dir=D:\Docker\Docker", "--wsl-default-data-root=D:\Docker\wsl", "--windows-containers-default-data-root=D:\Docker\data"
+
+루트 패스워드 변경
+powershell> wsl -u root
+# passwd id
