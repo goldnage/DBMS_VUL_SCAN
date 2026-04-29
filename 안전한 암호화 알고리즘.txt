@@ -1,0 +1,84 @@
+0. OS Vender ID
+  bash4.4$ su -   -->root 로긴
+  [root@b24a9535f826 ~]# cat /etc/os-release
+
+1. yum update
+
+   bash4.4$ su -   -->root 로긴
+
+   [root@b24a9535f826 ~]# cat /etc/yum/vars/ociregion
+   -us-phoenix-1
+
+   
+  [root@b24a9535f826 ~]# echo -n "" >  /etc/yum/vars/ociregion 
+
+  [root@b24a9535f826 ~]# yum update
+Oracle Linux 8 BaseOS Latest (x86_64)                                                                                                                                              6.5 MB/s |  85 MB     00:13
+Oracle Linux 8 Application Stream (x86_64)                                                                                                                                         4.3 MB/s |  66 MB     00:15
+Oracle Linux 8 Development Packages (x86_64)   
+   
+2. sudo nano 설치
+   [root@b24a9535f826 ~]# yum install sudo
+   
+   [root@b24a9535f826 ~]# yum install nano
+
+3. wheel 그룹에 oracle 계정 추가
+    root로 접근
+    $ docker exec -u 0 -it ora-26ai /bin/bash
+
+    [root@b24a9535f826 ~]# usermod -aG wheel oracle
+
+    [root@b24a9535f826 ~]# echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+    [root@b24a9535f826 ~]# echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+    검증 
+   [root@b24a9535f826 ~]# su - oracle
+   [root@b24a9535f826 ~]$ groups
+# Output should include: oracle oinstall dba wheel
+
+   [root@b24a9535f826 ~]$ sudo whoami
+# Should output: root
+
+
+    --oracle password reset
+    bash-4.4$ su -
+
+    [root@b24a9535f826 ~]# passwd oracle
+    New password:
+    Retype new password:
+    passwd: all authentication tokens updated successfully.
+
+    [root@b24a9535f826 ~]# exit
+     logout
+
+    [oracle@b24a9535f826 ~]$ sudo whoami
+     [sudo] password for oracle:
+    root
+
+  4. sha-512 암호화 적용
+
+    -- sqlner.ora 파일 위치: /opt/oracle/product/26ai/dbhomeFree/network/admin
+
+    -- 다음 항목을 추가
+# Enforce SHA-512 Checksum (Integrity)
+SQLNET.CRYPTO_CHECKSUM_SERVER = REQUIRED
+SQLNET.CRYPTO_CHECKSUM_TYPES_SERVER = (SHA512)
+
+# Enforce AES-256 Encryption
+SQLNET.ENCRYPTION_SERVER = REQUIRED
+SQLNET.ENCRYPTION_TYPES_SERVER = (AES256)
+
+# Disable weak cryptography
+SQLNET.ALLOW_WEAK_CRYPTO_CLIENTS = FALSE
+
+  -- 컨테이너 재시작
+
+docker restart ora-26ai
+
+  -- 검증
+
+ SQL> SELECT NETWORK_SERVICE_BANNER FROM V$SESSION_CONNECT_INFO;
+
+    
+   
