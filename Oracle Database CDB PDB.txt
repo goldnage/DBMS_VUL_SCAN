@@ -52,4 +52,9 @@ GRANT CREATE SESSION TO new_user;
 <<이미 있는 계정에 프로파일 적용>>
 ALTER USER bob PROFILE app_user_profile;
 
+REVOKE privilege_name ON object_name FROM user_name;
+
+
+off 
+
 
